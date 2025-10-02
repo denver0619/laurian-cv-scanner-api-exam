@@ -2,6 +2,7 @@ import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import apiRoutes from "./routes/routes";
+import firebaseAuthentication from "./middlewares/firebase.authentication";
 
 dotenv.config();
 
@@ -11,6 +12,8 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(firebaseAuthentication);
 
 // --- API Routes ---
 app.get("/", (req: Request, res: Response) => {
